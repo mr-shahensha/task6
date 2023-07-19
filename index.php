@@ -16,27 +16,24 @@ include("connection.php");
             <select name="root" id="root">
             <option value="">select root</option>
             <?php
-            $query=mysqli_query($con,"SELECT * FROM `menu`");
+            $query=mysqli_query($con,"select * from menu");
             while($result=mysqli_fetch_assoc($query)){
                 $sl=$result['sl'];
                 $root0=$result['root'];
                 $menu=$result['menu'];
-                ?>
-                <option value="<?php echo $sl;?>">
-                <?php
                 if($root0==0){
-                    echo "main ".$menu;
-                }else{
-                    $call_menu=mysqli_query($con,"select * from menu where sl='$root0'");
-                    while($r=mysqli_fetch_assoc($call_menu)){
-                        $m=$r['menu'];
-                        $rr=$r['sl'];
-                echo $m."-".$rr."-".$menu;
-                }
-            }
-               ?>
-               </option>
+                    ?>
+                    <option value=""><?php echo "main ".$menu;?></option>
                 <?php
+                }else{
+                ?>
+                    <option value=""><?php 
+                    $query7=mysqli_query($con,"select * from menu where")
+                    
+                    
+                    echo $menu;?></option>
+                <?php
+                }
             }
             ?>
             </select>
@@ -88,9 +85,7 @@ include("connection.php");
                     $menu=$result['menu'];
                     $root=$result['root'];
                     $sl=$result['sl'];
-                    
-                    // $count_c_p=mysqli_num_rows(mysqli_query($con,"select * from menu where root='$sl'"));
-                    ?>
+                                        ?>
                     <td><?php  echo $menu;?></td>
 
                     <?php
@@ -152,6 +147,34 @@ include("connection.php");
                     ?>
 </tr>
 </table>
+<br>
+
+<table border="1">
+<tr>
+            <?php
+                $query=mysqli_query($con,"select * from menu where root='1'");
+                while($result=mysqli_fetch_assoc($query)){
+                    $menu=$result['menu'];
+                    $root=$result['root'];
+                    $sl=$result['sl'];
+                                        ?>
+                    <td onmouseover="fun('<?php echo $sl;?>')" id=""><?php  echo $menu;?></td>
+
+                    <?php
+                }
+                    ?>
+</tr>
+
+   
+
+</table>
+<br>
+<div id="div"></div>
 
 </body>
 </html>
+<script>
+    function fun(root){
+        $('#div').load('menu_data.php?root='+root).fadeIn('fast');
+}
+</script>
