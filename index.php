@@ -8,6 +8,7 @@ include("connection.php");
     <title>task6</title>
 </head>
 <body>
+    <a href="index1.php">index1</a>
     <form action="add_result.php" method="post">
     <table border="2">
     <tr>
@@ -17,32 +18,42 @@ include("connection.php");
             <option value="">select root</option>
 			<option value="0">Main root</option>
             <?php
-            $query=mysqli_query($con,"select * from menu ");
+            $query=mysqli_query($con,"select * from menu where root='0'");
             while($result=mysqli_fetch_assoc($query)){
+				$itm="";
                 $sl=$result['sl'];
-                $root0=$result['root'];
                 $menu=$result['menu'];
-                if($root0==0){
-                    ?>
-                    <option value=""><?php echo "main ".$menu;?></option>
-                <?php
-                }else{
+                $itm=$menu;
+				?>
+				<option value="<?php echo $sl;?>"><?php echo $itm;?></option>
+				<?php
+				
+				$query1=mysqli_query($con,"select * from menu where root='$sl'");
+				while($result1=mysqli_fetch_assoc($query1)){
+				$itm1="";
+                $sl1=$result1['sl'];
+                $menu1=$result1['menu'];
+                $itm1=$itm."->".$menu1;
+				?>
+				<option value="<?php echo $sl1;?>"><?php echo $itm1;?></option>
+				<?php
+				
+				$query2=mysqli_query($con,"select * from menu where root='$sl1'");
+				while($result2=mysqli_fetch_assoc($query2)){
+				$menu2="";
+                $sl2=$result2['sl'];
+                $menu2=$result2['menu'];
+
+				?>
+				<option value="<?php echo $sl2;?>"><?php echo $itm1."->".$menu2;?></option>
+				<?php
+				
+				
+                }
+				
+                }
+			}
                 ?>
-                    <option value=""><?php 
-                    $query7=mysqli_query($con,"select * from menu where sl='$root0'");
-                    while($r=mysqli_fetch_assoc($query7)){
-                        $m=$r['menu'];
-                        $rr=$r['sl'];
-                        $roots=$r['root'];
-                        $call_menu2=mysqli_query($con,"select * from menu where sl='$roots'");
-                        while($r2=mysqli_fetch_assoc($call_menu2)){
-                            $m2=$r2['menu'];
-                            $rr2=$r2['sl'];
-                    echo $m2.'->'.$m.'->'.$menu;?></option>
-                <?php
-                }}}
-            }
-            ?>
             </select>
         </td>
         <td> menu</td>
@@ -56,7 +67,7 @@ include("connection.php");
             <tr>
                 <td>menu -> </td>
                 <?php
-                $query=mysqli_query($con,"select * from menu where root='1'");
+                $query=mysqli_query($con,"select * from menu where root='0'");
                 while($result=mysqli_fetch_assoc($query)){
                     $menu=$result['menu'];
                     $root=$result['root'];
@@ -87,7 +98,7 @@ include("connection.php");
 <table border="1">
 <tr>
             <?php
-                $query=mysqli_query($con,"select * from menu where root='1'");
+                $query=mysqli_query($con,"select * from menu where root='0'");
                 while($result=mysqli_fetch_assoc($query)){
                     $menu=$result['menu'];
                     $root=$result['root'];
@@ -102,7 +113,7 @@ include("connection.php");
 
 <tr>
                     <?php
-                  $qry=mysqli_query($con,"select * from menu where root='1'");
+                  $qry=mysqli_query($con,"select * from menu where root='0'");
                   while($rrr=mysqli_fetch_assoc($qry)){     
                     $sl3=$rrr['sl'];
                     ?>
@@ -159,7 +170,7 @@ include("connection.php");
 <table border="1">
 <tr>
             <?php
-                $query=mysqli_query($con,"select * from menu where root='1'");
+                $query=mysqli_query($con,"select * from menu where root='0'");
                 while($result=mysqli_fetch_assoc($query)){
                     $menu=$result['menu'];
                     $root=$result['root'];
@@ -175,6 +186,7 @@ include("connection.php");
    
 
 </table>
+
 <br>
 <div id="div"></div>
 

@@ -52,4 +52,5 @@ include("connection.php");
                 }
 			}
                 ?>
+                </td>
                     
