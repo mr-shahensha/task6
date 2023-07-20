@@ -15,8 +15,9 @@ include("connection.php");
         <td>
             <select name="root" id="root">
             <option value="">select root</option>
+			<option value="0">Main root</option>
             <?php
-            $query=mysqli_query($con,"select * from menu");
+            $query=mysqli_query($con,"select * from menu ");
             while($result=mysqli_fetch_assoc($query)){
                 $sl=$result['sl'];
                 $root0=$result['root'];
@@ -28,12 +29,18 @@ include("connection.php");
                 }else{
                 ?>
                     <option value=""><?php 
-                    $query7=mysqli_query($con,"select * from menu where")
-                    
-                    
-                    echo $menu;?></option>
+                    $query7=mysqli_query($con,"select * from menu where sl='$root0'");
+                    while($r=mysqli_fetch_assoc($query7)){
+                        $m=$r['menu'];
+                        $rr=$r['sl'];
+                        $roots=$r['root'];
+                        $call_menu2=mysqli_query($con,"select * from menu where sl='$roots'");
+                        while($r2=mysqli_fetch_assoc($call_menu2)){
+                            $m2=$r2['menu'];
+                            $rr2=$r2['sl'];
+                    echo $m2.'->'.$m.'->'.$menu;?></option>
                 <?php
-                }
+                }}}
             }
             ?>
             </select>
